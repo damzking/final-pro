@@ -42,8 +42,8 @@ models = {}
 encoder = None
 try:
     models = {
-        'model1': joblib.load()
-        'model2': joblib.load()
+        'model1': joblib.load(),
+        'model2': joblib.load(),
         'model3': joblib.load()
         
     }
