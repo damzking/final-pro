@@ -1,0 +1,19 @@
+credentials:
+  usernames:
+    bamzzyy:
+      email: Aminu.desmond@azubiafrica.org
+      logged_in: False # will be managed automatically
+      name: Aminu Rotimi
+      password: '10101'
+    guser:
+      email: Guest@azubiafrica.org
+      logged_in: False # will be managed automatically
+      name: Guest
+      password: 'guestuser'
+cookie:
+  expiry_days: 30
+  key: cookie_signature_key
+  name: cookie_name
+pre-authorized:
+  emails:
+    - Aminuoluwarotimi@gmail.com
