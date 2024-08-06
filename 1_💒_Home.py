@@ -12,15 +12,15 @@ st.set_page_config(
 
 def background():
     st.header(":gray-background[Welcome to :rainbow[Estimated Time of Arrival Prediction App]]")
-    col1, col2, col3 = st.columns(3)
+    col1, col2 = st.columns(2)
+
     with col1:
+        st.image('Resources/image.jpg', width=400)
+    with col2:
         st.caption("""
                 For more information about me, checkout my
                 :red[[GitHub](https://github.com/Koanim/ETA-PREDICTION-FOR-DELIVERY-COMPANY), [LinkedIn](https://www.linkedin.com/in/aminudesmond/)]""")
         
-    with col2:
-        st.image('Resources/image.jpg', width=400)
-    with col3:
         st.caption("##### Contact Me 📧")
         st.caption(""" 
             - Need help with this app?
@@ -121,7 +121,7 @@ authenticator = stauth.Authenticate(
 name, authentication_status, username = authenticator.login(location='sidebar')
 
 if st.session_state['authentication_status']:
-    st.sidebar.write(f'Welcome, {username}')
+    st.sidebar.write(f'Welcome {username}')
     authenticator.logout(location='sidebar')
     if st.sidebar.button('Reset Password'):
         st.session_state['reset_password'] = True
