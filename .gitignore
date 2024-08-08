@@ -2,3 +2,5 @@
 /cpenv
 /venv
 /config.yaml
+/api/__pycache__
+
