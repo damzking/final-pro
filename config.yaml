@@ -1,0 +1,17 @@
+# config/config.yaml
+
+credentials:
+  usernames:
+    guser:
+      name: Guest User
+      password: "guestuser"   # Ensure passwords are hashed
+      email: "guestuser@example.com"
+
+cookie:
+  name: "eta_app_auth"
+  key: "some_random_key_here"
+  expiry_days: 30
+
+pre-authorized:
+  emails: 
+    - "guestuser@example.com"           # Allowing the test account access
