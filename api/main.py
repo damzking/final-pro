@@ -1,6 +1,5 @@
 import joblib
 import pandas as pd
-
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,13 +8,13 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Updated EtaFeatures without the ETA field
 class EtaFeatures(BaseModel):
     Origin_lat: float
     Origin_lon: float
     Destination_lat: float
     Destination_lon: float
     Trip_distance: int
-    ETA: int
     Year: int
     Day: int
     Month: int
@@ -40,7 +39,7 @@ models = {}
 try:
     models = {
         'GB_Model': joblib.load('../models/GB_pipeline.joblib'),
-        'XGB_model': joblib.load('../models/XGB_pipeline.joblib'),
+        'XGB_Model': joblib.load('../models/XGB_pipeline.joblib'),
     }
     logger.info('Models loaded successfully.')
 except Exception as e:
@@ -70,4 +69,3 @@ async def predict_ETA(model_name: str, data: EtaFeatures):
 if __name__ == '__main__':
     import uvicorn
     uvicorn.run(app, host='0.0.0.0', port=8000)
-
