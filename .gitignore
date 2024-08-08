@@ -3,4 +3,6 @@
 /venv
 /config.yaml
 /api/__pycache__
+/.streamlit/config.yaml
+
 

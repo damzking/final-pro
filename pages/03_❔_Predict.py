@@ -1,43 +1,46 @@
 import streamlit as st
-import requests
+import joblib
+import pandas as pd
+import os
+import yaml
+from yaml.loader import SafeLoader
+import streamlit_authenticator as stauth
 
-api_url = 'http://127.0.0.1:8000'
-
+# Set up the page configuration
 st.set_page_config(
-    page_title="Ride hailing ETA Prediction (in seconds)",
-    layout="wide",
-    initial_sidebar_state="expanded",
+    page_title='ETA Prediction App',
+    page_icon='🚗',
+    layout='wide'
 )
 
-st.title("Ride ETA Prediction Parameters")
-col1, col2 = st.columns(2)
+# Load the authentication configuration
+with open('config.yaml') as file:
+    config = yaml.load(file, Loader=SafeLoader)
 
-# Initialize session state variables
-if 'prediction' not in st.session_state:
-    st.session_state['prediction'] = None
+authenticator = stauth.Authenticate(
+    config['credentials'],
+    config['cookie']['name'],
+    config['cookie']['key'],
+    config['cookie']['expiry_days'],
+    config['pre-authorized']
+)
 
-with col1:
-    st.selectbox('Select Model', options=['GB_Model', 'XGB_Model'], key='model_name')
-    model_name = st.session_state['model_name']
+# Load models
+@st.cache_resource()
+def load_model(model_name):
+    return joblib.load(f'./models/{model_name}.joblib')
 
-def show_form():
-    with st.form('enter_features'):
-        col1, col2 = st.columns(2)
-        with col1:
-            st.number_input("Enter Latitude of your pickup location", min_value=0.0, max_value=10000.0, key='Origin_lat')
-            st.number_input("Enter Longitude of your pickup location", min_value=0.0, max_value=10000.0, key='Origin_lon')
-            st.number_input("Enter Latitude of your destination", min_value=0.0, max_value=10000.0, key='Destination_lat')        
-            st.number_input("Enter Longitude of your destination", min_value=0.0, max_value=10000.0, key='Destination_lon')
-            st.number_input("Enter Trip distance in metres", min_value=0, max_value=1000000, key='Trip_distance')
-            st.number_input('Enter the year', min_value=2000, max_value=3000, key='Year')
-        with col2:
-            st.number_input('Enter the month', min_value=1, max_value=12, key='Month')
-            st.number_input("Enter the day", min_value=1, max_value=31, key='Day')
-            st.number_input("Enter the hour", min_value=0, max_value=23, key='Hour')
-            st.number_input("Enter the minute", min_value=0, max_value=59, key='Minute')
-        st.form_submit_button('Predict Estimated Time of Arrival', on_click=make_prediction)
+# Load and select model
+def select_model():
+    col1, _ = st.columns(2)
+    with col1:
+        model_name = st.selectbox('Select Model', options=['GB_Model', 'XGB_model'], key='selected_model')
 
-def make_prediction():
+    pipeline = load_model(model_name)
+    return pipeline
+
+# Function to make predictions
+def make_prediction(pipeline):
     data = {
         'Origin_lat': st.session_state['Origin_lat'],
         'Origin_lon': st.session_state['Origin_lon'],
@@ -45,29 +48,62 @@ def make_prediction():
         'Destination_lon': st.session_state['Destination_lon'],
         'Trip_distance': st.session_state['Trip_distance'],
         'Year': st.session_state['Year'],
+        'Day': st.session_state['Day'],
         'Month': st.session_state['Month'],
-        'Day': st.session_state['Day'],  # Corrected key name to 'Day'
         'Hour': st.session_state['Hour'],
         'Minute': st.session_state['Minute']
     }
-
-    try:
-        response = requests.post(f'{api_url}/predict/{model_name}', json=data)
-        response.raise_for_status()  # Raise an error for bad status codes
-        response_data = response.json()
-        st.session_state['prediction'] = response_data.get('prediction')
-    except requests.exceptions.RequestException as e:
-        st.error(f"An error occurred: {e}")
-    except Exception as e:
-        st.error(f"An unexpected error occurred: {e}")
-
-if __name__ == "__main__":
-    show_form()
+    df = pd.DataFrame([data])
     
-    final_prediction = st.session_state.get('prediction')
-    if final_prediction is None:
-        st.write('### Prediction will show here')
-    else:
+    # Predict ETA
+    pred = pipeline.predict(df)
+    st.session_state['prediction'] = round(pred[0], 2)
+
+    # Save results
+    df['prediction'] = st.session_state['prediction']
+    df['model_used'] = st.session_state['selected_model']
+
+    history_file_path = 'Data/history.csv'
+    df.to_csv(history_file_path, mode='a', header=not os.path.exists(history_file_path), index=False)
+
+if 'prediction' not in st.session_state:
+    st.session_state['prediction'] = None
+
+def display_form():
+    pipeline = select_model()
+    with st.form('input_form'):
         col1, col2 = st.columns(2)
         with col1:
-            st.write(f"### The Estimated Time of Arrival is : {final_prediction} seconds")
+            st.number_input('Origin Latitude', key='Origin_lat')
+            st.number_input('Origin Longitude', key='Origin_lon')
+            st.number_input('Destination Latitude', key='Destination_lat')
+            st.number_input('Destination Longitude', key='Destination_lon')
+            st.number_input('Trip Distance (in km)', key='Trip_distance', min_value=0)
+
+        with col2:
+            st.number_input('Year', key='Year', min_value=2000, max_value=2100)
+            st.number_input('Month', key='Month', min_value=1, max_value=12)
+            st.number_input('Day', key='Day', min_value=1, max_value=31)
+            st.number_input('Hour', key='Hour', min_value=0, max_value=23)
+            st.number_input('Minute', key='Minute', min_value=0, max_value=59)
+
+        st.form_submit_button('Predict ETA', on_click=make_prediction, kwargs=dict(pipeline=pipeline))
+
+if st.session_state['authentication_status']:    
+    authenticator.logout(location='sidebar')
+    col1, col2 = st.columns(2)
+    with col1:
+        st.image('resources/eta_image.png', width=200)
+    with col2:
+        st.header('Predict Estimated Time of Arrival')
+
+    display_form()
+    
+    final_prediction = st.session_state['prediction']
+    if final_prediction is None:
+        st.write('### ETA Prediction will be displayed here')
+    else:
+        st.write(f'### Predicted ETA: {final_prediction} minutes')
+
+else:
+    st.info('Please log in to access the app.')
