@@ -10,6 +10,8 @@ st.set_page_config(
     layout='wide'
 )
 
+
+
 def background():
     st.header(":gray_background[Welcome to :rainbow[Estimated Time of Arrival Prediction App]]")
     col1, col2 = st.columns(2)
