@@ -15,7 +15,7 @@ def background():
     col1, col2 = st.columns(2)
 
     with col1:
-        st.image('Resources/image.jpg', width=400)
+        st.image('Resources/image.jpg', width=600)
     with col2:
         st.caption("""
                 For more information about me, checkout my
@@ -34,7 +34,7 @@ def background():
             with st.container():
                 st.write('#### About App')
                 st.caption(
-                    "This app predicts the estimated time of arrival (ETA) for deliveries using three different machine learning model pipelines: XGBoost, CatBoost, and Gradient Boosting.")
+                    "This app predicts the estimated time of arrival (ETA) for deliveries using two different machine learning model pipelines: XGBoost and Gradient Boosting.")
                 st.caption("\nIt provides accurate and real-time ETA predictions for both new and existing deliveries, helping streamline operations and improve customer satisfaction.")
                 st.caption("\nThe history feature of this app stores all predictions made, allowing for later analysis to evaluate the accuracy of each model. This data can be used to determine which models perform best, providing insights for future improvements.")
                 st.write("""#### Key Features of App """)
