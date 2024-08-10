@@ -29,8 +29,9 @@ def show_form():
             st.number_input("Enter Latitude of your destination", min_value=0.0, max_value=10000.0, key='Destination_lat')        
             st.number_input("Enter Longitude of your destination", min_value=0.0, max_value=10000.0, key='Destination_lon')
             st.number_input("Enter Trip distance in metres", min_value=0, max_value=1000000, key='Trip_distance')
-            st.number_input('Enter the year', min_value=2000, max_value=3000, key='Year')
+            
         with col2:
+            st.number_input('Enter the year', min_value=2000, max_value=3000, key='Year')
             st.number_input('Enter the month', min_value=1, max_value=12, key='Month')
             st.number_input("Enter the day", min_value=1, max_value=31, key='Day')
             st.number_input("Enter the hour", min_value=0, max_value=23, key='Hour')

@@ -12,11 +12,11 @@ st.set_page_config(
 
 
 def background():
-    st.header(":gray_background[Welcome to :rainbow[Estimated Time of Arrival Prediction App]]")
+    st.header("Welcome to :rainbow[Estimated Time of Arrival Prediction App]")
     col1, col2 = st.columns(2)
 
     with col1:
-        st.image('Resources/image.jpg', width=600)
+        st.image('Resources/image.jpg', width=500)
     with col2:
         st.caption("""
             For more information about me, checkout my

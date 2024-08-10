@@ -79,25 +79,28 @@ def display_form():
         st.markdown('### Trip Details')
         col1, col2 = st.columns(2)
         with col1:
-            st.number_input('Origin Latitude', key='Origin_lat', min_value=-0.0, max_value=1000.0)
-            st.number_input('Origin Longitude', key='Origin_lon', min_value=-0.0, max_value=1000.0)
-            st.number_input('Destination Latitude', key='Destination_lat', min_value=-0.0, max_value=1000.0)
-            st.number_input('Destination Longitude', key='Destination_lon', min_value=-0.0, max_value=1000.0)
-            st.number_input('Trip Distance (km)', key='Trip_distance')
+            st.number_input('Enter Latitude of your pickup location', key='Origin_lat', min_value=-0.0, max_value=1000.0)
+            st.number_input('Enter Longitude of your pickup location', key='Origin_lon', min_value=-0.0, max_value=1000.0)
+            st.number_input('Enter Latitude of your destination', key='Destination_lat', min_value=-0.0, max_value=1000.0)
+            st.number_input('Enter Longitude of your destination', key='Destination_lon', min_value=-0.0, max_value=1000.0)
+            st.number_input('Enter Trip Distance (m)', key='Trip_distance')
         with col2:
-            st.number_input('Year', key='Year', min_value=2000, max_value=2100)
-            st.number_input('Day', key='Day', min_value=1, max_value=31)
-            st.number_input('Month', key='Month', min_value=1, max_value=12)
-            st.number_input('Hour', key='Hour', min_value=0, max_value=23)
-            st.number_input('Minute', key='Minute', min_value=0, max_value=59)
-        st.form_submit_button('Predict ETA', on_click=make_prediction, kwargs=dict(pipeline=pipeline))
+            st.number_input('Enter the Year of your trip', key='Year', min_value=2000, max_value=2100)
+            st.number_input('Enter the Day of your trip', key='Day', min_value=1, max_value=31)
+            st.number_input('Enter the Month of your trip', key='Month', min_value=1, max_value=12)
+            st.number_input('Enter the Hour of your trip', key='Hour', min_value=0, max_value=23)
+            st.number_input('Enter the Minute of your trip', key='Minute', min_value=0, max_value=59)
+        st.form_submit_button('Predict Estimated Time of Arrival', on_click=make_prediction, kwargs=dict(pipeline=pipeline))
 
 if st.session_state['authentication_status']:
     authenticator.logout(location='sidebar')
     st.header('🚗 ETA Prediction')
     display_form()
     
-    if st.session_state['prediction'] is not None:
-        st.write(f'### Predicted ETA: {st.session_state["prediction"]} seconds')
-else:
-    st.info('Login to gain access to the app')
+    final_prediction = st.session_state['prediction'][0].astype(int)
+    if final_prediction is None:
+        st.write('### Prediction will show here')
+    else:
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write(f"##### The Estimated Time of Arrival is :  :red[**{final_prediction}**] seconds")
