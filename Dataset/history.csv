@@ -1,0 +1,3 @@
+Origin_lat,Origin_lon,Destination_lat,Destination_lon,Trip_distance,Year,Day,Month,Hour,Minute,prediction,model_used
+-0.0,-0.0,-0.0,-0.0,0.0,2000,1,1,0,0,389.43303254923785,GB_Model
+-0.0,-0.0,-0.0,-0.0,0.0,2000,1,1,0,0,82.06455,XGB_Model
