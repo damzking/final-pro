@@ -81,7 +81,7 @@ The two lengthy command lines share the same structure, utilizing the ` ; ` symb
         
   Streamlit:
   
-          streamlit run 1_💒_Home.py  -->
+          streamlit run 1_💒_Home.py 
 
 ## Docker App Screenshots
 
