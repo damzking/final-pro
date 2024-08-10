@@ -45,7 +45,7 @@ def select_model():
     col1, col2 = st.columns(2)
     
     with col1:
-        st.selectbox('Select Model', options=['XGBoost', 'Gradient Boosting'], key='selected_model')
+        st.selectbox('Select Model', options=['GB_Model', 'XGB_Model'], key='selected_model')
 
     with col2:
         pass
