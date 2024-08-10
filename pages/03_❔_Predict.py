@@ -34,10 +34,6 @@ def load_GB_model():
 def load_XGB_model():
     return joblib.load('./models/XGB_pipeline.joblib')
 
-@st.cache_resource
-def load_encoder():
-    return joblib.load('./models/encoder.joblib')
-
 # Model selection function
 def select_model():
     st.selectbox('Select Model', options=['GB_Model', 'XGB_Model'], key='selected_model')
@@ -54,7 +50,6 @@ def make_prediction(pipeline):
         'Destination_lat': st.session_state['Destination_lat'],
         'Destination_lon': st.session_state['Destination_lon'],
         'Trip_distance': st.session_state['Trip_distance'],
-        'ETA': st.session_state['ETA'],
         'Year': st.session_state['Year'],
         'Day': st.session_state['Day'],
         'Month': st.session_state['Month'],
@@ -62,7 +57,7 @@ def make_prediction(pipeline):
         'Minute': st.session_state['Minute']
     }
     df = pd.DataFrame([data])
-    prediction = pipeline.predict(df)[0]
+    prediction = pipeline.predict(df)
     
     st.session_state['prediction'] = prediction
 
@@ -84,14 +79,13 @@ def display_form():
         st.markdown('### Trip Details')
         col1, col2 = st.columns(2)
         with col1:
-            st.number_input('Origin Latitude', key='Origin_lat', min_value=-90.0, max_value=90.0)
-            st.number_input('Origin Longitude', key='Origin_lon', min_value=-180.0, max_value=180.0)
-            st.number_input('Destination Latitude', key='Destination_lat', min_value=-90.0, max_value=90.0)
-            st.number_input('Destination Longitude', key='Destination_lon', min_value=-180.0, max_value=180.0)
-        with col2:
+            st.number_input('Origin Latitude', key='Origin_lat', min_value=-0.0, max_value=1000.0)
+            st.number_input('Origin Longitude', key='Origin_lon', min_value=-0.0, max_value=1000.0)
+            st.number_input('Destination Latitude', key='Destination_lat', min_value=-0.0, max_value=1000.0)
+            st.number_input('Destination Longitude', key='Destination_lon', min_value=-0.0, max_value=1000.0)
             st.number_input('Trip Distance (km)', key='Trip_distance')
-            st.number_input('ETA (minutes)', key='ETA')
-            st.number_input('Year', key='Year', min_value=1900, max_value=2100)
+        with col2:
+            st.number_input('Year', key='Year', min_value=2000, max_value=2100)
             st.number_input('Day', key='Day', min_value=1, max_value=31)
             st.number_input('Month', key='Month', min_value=1, max_value=12)
             st.number_input('Hour', key='Hour', min_value=0, max_value=23)
@@ -104,6 +98,6 @@ if st.session_state['authentication_status']:
     display_form()
     
     if st.session_state['prediction'] is not None:
-        st.write(f'### Predicted ETA: {st.session_state["prediction"]} minutes')
+        st.write(f'### Predicted ETA: {st.session_state["prediction"]} seconds')
 else:
     st.info('Login to gain access to the app')
