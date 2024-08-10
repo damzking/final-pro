@@ -15,7 +15,7 @@ def background():
     col1, col2 = st.columns(2)
 
     with col1:
-        st.image('Resources/image.jpg', width=400)
+        pass
     with col2:
         st.caption("""
                 For more information about me, checkout my

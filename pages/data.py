@@ -115,7 +115,7 @@ if st.session_state['authentication_status']:
     authenticator.logout(location='sidebar')
     col1, col2 = st.columns(2)
     with col2:
-        st.write('### :rainbow-background[Telco Customer Churn Data ]🗃')
+        st.write('ETA PREDICTION APP ]🗃')
         st.selectbox('Select DataFrame/Descriptive statistics', options=['Data', 'Statistics'], key='selected_dataframe')
     
     if st.session_state['selected_dataframe'] == 'Data':
