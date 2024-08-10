@@ -102,7 +102,7 @@ if st.session_state['authentication_status']:
     authenticator.logout(location='sidebar')
     col1, col2 = st.columns(2)
     with col1:
-        st.image('Resources/image.jpg', width=400)
+        st.image('Resources/image.jpg', width=600)
     with col2:
         st.header(':rainbow-background[Estimated time of arrival Prediction]')
 

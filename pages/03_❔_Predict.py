@@ -94,7 +94,12 @@ def display_form():
 
 if st.session_state['authentication_status']:
     authenticator.logout(location='sidebar')
-    st.header('🚗 ETA Prediction')
+    col1, col2= st.columns(2)
+    with col1:
+        st.image('Resources/image.jpg', width=600)
+    
+    with col2:
+        st.header('🚗 ETA Prediction')
     display_form()
     
     if st.session_state['prediction'] is not None:
