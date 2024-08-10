@@ -9,9 +9,6 @@ import streamlit_authenticator as stauth
 import yaml
 from yaml.loader import SafeLoader
 
-
-
-
 import plotly.graph_objects as go
 
 
