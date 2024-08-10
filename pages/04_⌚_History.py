@@ -12,7 +12,7 @@ st.set_page_config(
     layout='wide'
 )
 
-with open('config.yaml') as file:
+with open('.streamlit/config.yaml') as file:
     config = yaml.load(file, Loader=SafeLoader)
 
 authenticator = stauth.Authenticate(
@@ -43,11 +43,16 @@ if st.session_state['authentication_status']:
     authenticator.logout(location='sidebar') 
     col1, col2 = st.columns(2)
     with col1:
-        st.image('Resources/image.jpg', width=600)
+        pass #st.image('resources/imageshist.jfif', width=200)
     with col2:
         st.header(':rainbow-background[Historic Predictions]') 
     display_historic_predictions()
 
 else:
     st.info('Login to gain access to the app')
+
+
+
+
+
 
