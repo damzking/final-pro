@@ -65,16 +65,23 @@ The two lengthy command lines share the same structure, utilizing the ` ; ` symb
     
     - Main
 
-          cd src, uvicorn main:app --reload 
+          cd api, uvicorn main:app --reload 
 
     <!-- - ETA prediction
 
-          cd src, uvicorn mainp:app --reload  -->
+          cd api, uvicorn mainp:app --reload  -->
 
 
   - Go to your browser at the local port, to explore the API's documentation :
         
       http://127.0.0.1:8000/docs
+
+
+## Run Streamlit App
+        
+  Streamlit:
+  
+          streamlit run 1_💒_Home.py  -->
 
 ## Docker App Screenshots
 
