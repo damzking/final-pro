@@ -65,7 +65,7 @@ def make_prediction(pipeline):
     df['prediction'] = prediction
     df['model_used'] = st.session_state['selected_model']
 
-    history_file_path = 'Data/history.csv'
+    history_file_path = 'Dataset/history.csv'
     df.to_csv(history_file_path, mode='a', header=not os.path.exists(history_file_path), index=False)
 
     return prediction
