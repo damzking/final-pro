@@ -96,9 +96,11 @@ The two lengthy command lines share the same structure, utilizing the ` ; ` symb
 
 ## Author✍️
 
-Aminu Oluwarotimi Desmond
+Victor Nyarko Anim
 
-Connect with me on LinkedIn: [Aminu Oluwarotimi Desmond](https://www.linkedin.com/in/aminudesmond/)
+Visit me on [LinkedIn](https://www.linkedin.com/in/victor-anim-83115818/) and [Medium](https://medium.com/@victor.nyarko)
+
+
 
 ---
 
