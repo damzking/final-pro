@@ -11,18 +11,17 @@ st.set_page_config(
 )
 
 
-
 def background():
-    st.header(":gray_background[Welcome to :rainbow[Estimated Time of Arrival Prediction App]]")
+    st.header("Welcome to :rainbow[Estimated Time of Arrival Prediction App]")
     col1, col2 = st.columns(2)
 
     with col1:
-        st.image('Resources/image.jpg', width=600)
+        st.image('Resources/image.jpg', width=500)
     with col2:
         st.caption("""
             For more information about me, checkout my
             :red[[GitHub](https://github.com/Koanim/ETA-PREDICTION-FOR-DELIVERY-COMPANY), [LinkedIn](https://www.linkedin.com/in/aminudesmond/)]""")
-        
+
         st.caption("##### Contact Me 📧")
         st.caption(""" 
             - Need help with this app?
@@ -42,7 +41,7 @@ def background():
                 st.write("#### Key Features of App")
 
             with st.expander(":violet[**Data Page**] -"):
-                st.caption('This page displays the datasets used to train our machine learning models, including statistical information. The datasets were sourced from Azubi Africa platform and cleaned before modeling.')
+                st.caption('This page displays the datasets used to train our machine learning models, including statistical information. The datasets were sourced from the Azubi Africa platform and cleaned before modeling.')
 
             with st.expander(":violet[**Dashboard Page**] -"):
                 st.caption('The dashboard consists of two types of visualizations:')
@@ -109,14 +108,14 @@ name, authentication_status, username = authenticator.login(location='sidebar')
 if authentication_status:
     st.sidebar.write(f'Welcome {username}')
     authenticator.logout(location='sidebar')
-    
+
     if st.sidebar.button('Reset Password'):
         st.session_state['reset_password'] = True
-        
+
     if st.session_state.get('reset_password'):
         with st.form('reset_password_form'):
-            new_password = st.text_input('Enter new password')
-            confirm_password = st.text_input('Confirm new password', type='password') 
+            new_password = st.text_input('Enter new password', type='password')
+            confirm_password = st.text_input('Confirm new password', type='password')
             if st.form_submit_button('Reset'):
                 if new_password == confirm_password:
                     try:
@@ -126,8 +125,8 @@ if authentication_status:
                     except Exception as e:
                         st.error(e)
                 else:
-                    st.error('Passwords do not match 😕')
-    
+                    st.error('Passwords does not match 😕')
+
     background()
 
 elif authentication_status is False:
@@ -135,10 +134,10 @@ elif authentication_status is False:
 
 elif authentication_status is None:
     st.info('Please use the test account below to access the app')
-    
+
     if st.sidebar.button('Create Password'):
         st.session_state['Create Password'] = True
-        
+
     if st.session_state.get('Create Password'):
         with st.form('Create account'):
             name = st.text_input('Enter your name')
@@ -157,7 +156,7 @@ elif authentication_status is None:
                     except Exception as e:
                         st.error(e)
                 else:
-                    st.error('😕 Passwords do not match')
+                    st.error('😕 Passwords does not match')
 
     st.code("""
         Test Account
