@@ -117,7 +117,7 @@ if st.session_state['authentication_status']:
     with col1:
         st.image('Resources/image.jpg', width=500)
     with col2:
-        st.write('ETA PREDICTION APP ]🗃')
+        st.write('ETA PREDICTION APP 🗃')
         st.selectbox('Select DataFrame/Descriptive statistics', options=['Data', 'Statistics'], key='selected_dataframe')
     
     if st.session_state['selected_dataframe'] == 'Data':
