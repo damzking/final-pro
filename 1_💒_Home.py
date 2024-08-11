@@ -20,7 +20,7 @@ def background():
     with col2:
         st.caption("""
             For more information about me, checkout my
-            :red[[GitHub](https://github.com/Koanim/ETA-PREDICTION-FOR-DELIVERY-COMPANY), [LinkedIn](https://www.linkedin.com/in/aminudesmond/)]""")
+            :red[[GitHub](https://github.com/Koanim/ETA-PREDICTION-FOR-DELIVERY-COMPANY), [LinkedIn](https://www.linkedin.com/in/victor-anim-83115818/), [Medium](https://medium.com/@victor.nyarko)]""")
 
         st.caption("##### Contact Me 📧")
         st.caption(""" 
@@ -91,7 +91,7 @@ def background():
                     """)
 
 # Load authentication configuration
-with open('config.yaml') as file:
+with open('.streamlit/config.yaml') as file:
     config = yaml.load(file, Loader=SafeLoader)
 
 authenticator = stauth.Authenticate(

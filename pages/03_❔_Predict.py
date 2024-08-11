@@ -102,10 +102,11 @@ if st.session_state['authentication_status']:
         st.header('🚗 ETA Prediction')
     display_form()
     
-    final_prediction = st.session_state['prediction'][0].astype(int)
+    final_prediction = st.session_state['prediction']
     if final_prediction is None:
         st.write('### Prediction will show here')
     else:
         col1, col2 = st.columns(2)
         with col1:
+            final_prediction = st.session_state['prediction'][0].astype(int)
             st.write(f"##### The Estimated Time of Arrival is :  :red[**{final_prediction}**] seconds")
