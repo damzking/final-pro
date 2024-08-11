@@ -9,8 +9,8 @@ Developed a machine learning model to accurately predict the estimated time of a
 ## Project Summary 📄
 
 | Project Name | Deployed App | Streamlit website application |
-|------|[Docker Hub](https://hub.docker.com/repositories/victoranim)|[webapp](https://ride-hailing-eta-prediction.onrender.com)|
-| Yassir ETA prediction |  | 
+|--------------|--------------|------------------------------|
+| Yassir ETA prediction |[Docker Hub](https://hub.docker.com/repositories/victoranim)|[webapp](https://ride-hailing-eta-prediction.onrender.com)|
 
 The project is guided by the CRISP-DM (Cross-Industry Standard Process for Data Mining) framework.
 
