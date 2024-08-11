@@ -15,7 +15,7 @@ st.set_page_config(
 )
 
 # Load configuration for authentication
-with open('.streamlit/config.yaml') as file:
+with open('config.yaml') as file:
     config = yaml.load(file, Loader=SafeLoader)
 
 authenticator = stauth.Authenticate(
