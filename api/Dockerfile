@@ -14,7 +14,7 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 COPY requirements.txt /tmp/
 
 
-RUN python -m pip install --upgrade pip && python -m pip install --timeout 300 --no-cache-dir -r /tmp/requirements.txt
+RUN python -m pip install --upgrade pip && python -m pip install --timeout 3000 --no-cache-dir -r /tmp/requirements.txt
 
 
 COPY . /app
