@@ -7,4 +7,5 @@
 /.DS_Store
 /.streamlit/salt_pword_hash.py
 /myenv
-
+/config.yaml
+/render.yaml
